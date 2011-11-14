@@ -1,0 +1,69 @@
+= Summary
+
+A pure ruby simple templating library to pre-populate word documents. Primary
+features are:
+
+* Works with Word's docx format.
+* Allows simply text replacement only.
+
+= Usage
+
+    template = DocTemplate.new 'my_template.docx'
+    template['First Name'] = 'Joe'
+    template['Last Name'] = 'Blow'
+    template.save_as 'filled_out.docx'
+
+Then in the template add text "First Name" and "Last Name" to the document
+Finally make that text a field by selecting it, going to the "Developer" ribbon
+and clicking the "Plain Text" control button.
+
+= Future Directions
+
+In the future I would like to expand this library to:
+
+* I really don't know much about these fields is word but brief searches
+  indicate you can do all sorts of fancy things like bind them to a XML data
+  source. Perhaps we are making populating a Word Doc more complicated than it
+  needs to be? If we do change how the templates are marked up the key thing is
+  that it must be easy for an end user to adjust. That is what I like about
+  the current setup. They type in a key, then press a button in a ribbon.
+* Support other document types (spreadsheet?, presentation?) since they are
+  based on the same style of format as Word.
+* Support for OpenOffice/LibreOffice documents as they also follow the same
+  basic style of format (XML in a zip).
+* Rails integration as a template handler. So you can just set instance
+  variables in your controller and put the Word template in your views.
+
+= Influences
+
+This library was primarily inspired by the following projects/articles.
+
+== Documatic - http://documatic.240gl.org/
+
+Documatic is far more ambitious goals than doc_template. It
+
+* Integrate with Ruport (a Ruby reporting library)
+* It can work with both OpenOffice docs and spreadsheets
+* It allows control flow statements (conditionals, loops, etc).
+
+Reasons this library didn't work for my needs are:
+
+* Putting the control flow statements in the right place in the document often
+  results in invalid documents or documents that could easily get messed up
+  by the editor. So it became something I could never really hand over to an
+  end user to manage the formatting of the document.
+* Documatic used document styles to mark the areas that were code. While this
+  seems like a good, in practice is caused a lot of problems as you had to be
+  careful where you added characters or a new code block might be created and
+  you couldn't tell this without looking at the source.
+
+== Tomas Varsavsky article
+
+http://tomasvarsavsky.com/2009/04/04/simple-word-document-templating-using-ruby-and-xml/
+
+This has the basic ideas of this library but it is more advanced in some ways as
+it allows inline Ruby code. I think this is more error prone if I try to give a
+template to an end user so would rather just simple variables.
+
+Also this is just an article. While it contains example code it is not a
+packaged library that I can use in a project.
